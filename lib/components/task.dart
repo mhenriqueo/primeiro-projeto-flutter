@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:primeiro_projeto/components/difficulty.dart';
+import 'package:primeiro_projeto/data/task_dao.dart';
 
 class Task extends StatefulWidget {  // StatefulWidget: Um Widget que permite que a tela seja redesenhada caso algum estado dessa tela mude, por exemplo uma variavel e etc.
   final String nameTask;
@@ -116,6 +117,7 @@ class _TaskState extends State<Task> {
                         height: 52,
                         width: 52,
                         child: ElevatedButton(
+                          onLongPress: showDeleteConfirmationDialog,
                           onPressed: updateLevel,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -161,4 +163,42 @@ class _TaskState extends State<Task> {
       ),
     );
   }
+
+  void deleteTask(){
+    TaskDao().delete(widget.nameTask);
+  }
+
+  void showDeleteConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(
+            children: const [
+              Text('Deletar'),
+              Icon(Icons.delete_forever, color: Colors.red,),
+            ],
+          ),
+          content: const Text('Tem certeza de que deseja deletar essa tarefa?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Fecha o diálogo sem deletar
+              },
+              child: const Text('Não'),
+            ),
+            TextButton(
+              onPressed: () {
+                deleteTask(); // Deleta a tarefa
+                Navigator.of(context).pop(); // Fecha o diálogo após deletar
+              },
+              child: const Text('Sim'),
+            ),
+          ],
+          elevation: 24.0,
+        );
+      },
+    );
+  }
+
 }

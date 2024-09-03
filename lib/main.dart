@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: TaskInherited(child: InitialScreen()),
+      home: TaskInherited(child: const InitialScreen()),
     );
   }
 }
