@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:primeiro_projeto/components/task.dart';
 import 'package:primeiro_projeto/data/task_dao.dart';
-import 'package:primeiro_projeto/data/task_inherited.dart';
 
 class FormScreen extends StatefulWidget {
   final BuildContext taskContext;

@@ -5,15 +5,17 @@ import 'package:sqflite/sqlite_api.dart';
 import '../components/task.dart';
 
 class TaskDao {
-  static const String _tableName = 'taskTable';
+  static const String _tableName = 'tasks_v2'; // Nova tabela
   static const String _name = 'name';
   static const String _difficulty = 'difficulty';
   static const String _image = 'image';
+  static const String _level = 'level';
 
   static const String tableSql = 'CREATE TABLE $_tableName ('
       '$_name TEXT, '
       '$_difficulty INTEGER, '
-      '$_image TEXT)';
+      '$_image TEXT, '
+      '$_level INTEGER)';
 
   save(Task tarefa) async {
     print('Iniciando o save: ');
@@ -38,6 +40,7 @@ class TaskDao {
     mapaDeTarefas[_name] = tarefa.nameTask;
     mapaDeTarefas[_difficulty] = tarefa.difficulty;
     mapaDeTarefas[_image] = tarefa.image;
+    mapaDeTarefas[_level] = tarefa.level;
 
     print('Mapa de Tarefas: $mapaDeTarefas');
 
@@ -60,7 +63,7 @@ class TaskDao {
 
     final List<Task> tarefas = [];
     for(Map<String, dynamic> linha in mapaDeTarefas){
-      final Task tarefa = Task(linha[_name], linha[_image], linha[_difficulty]);
+      final Task tarefa = Task(linha[_name], linha[_image], linha[_difficulty], level: linha[_level]);
       tarefas.add(tarefa);
     }
 

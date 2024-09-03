@@ -7,9 +7,9 @@ class Task extends StatefulWidget {  // StatefulWidget: Um Widget que permite qu
   final String nameTask;
   final String image;
   final int difficulty;
-  int level = 0;          // Novo parametro
+  int level;          // Novo parametro
 
-  Task(this.nameTask, this.image, this.difficulty, {super.key});
+  Task(this.nameTask, this.image, this.difficulty, {this.level = 0, super.key});
 
   @override
   State<Task> createState() => _TaskState();
@@ -38,6 +38,7 @@ class _TaskState extends State<Task> {
         widget.level++;
       }
     });
+    TaskDao().save(widget); // Atualizar a tarefa no banco de dados
   }
 
   Color getRandomColor() {
